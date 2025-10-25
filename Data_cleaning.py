@@ -1,7 +1,10 @@
 import pandas as pd
 
 
-df = pd.read_csv('Superstore Sales Dataset.csv')
+df = pd.read_excel('Superstore_Sales_Datase.xls')
+print(df.head())
+
+# Setting column "Row ID" as the index of the dataset
 df.set_index('Row ID', inplace=True)
 print(df.isnull().sum())
 print("------------------")
@@ -26,9 +29,14 @@ def postal_to_str(code):
 df['Postal Code'] = df['Postal Code'].apply(postal_to_str)
 
 
-
+# Converting both columns ("Order Date" , "Ship Date") to Datetime with format (day/month/year)
 df["Order Date"] = pd.to_datetime(df["Order Date"], format="%d/%m/%Y")
 df["Ship Date"] = pd.to_datetime(df["Ship Date"], format="%d/%m/%Y")
+
+# Showing only Date values in both columns
+df['Order Date'] = df['Order Date'].dt.strftime('%d/%m/%Y')
+df['Ship Date'] = df['Ship Date'].dt.strftime('%d/%m/%Y')
+
 
 print(df[df['Postal Code'] == '000000'])
 print("------------------")
@@ -37,4 +45,4 @@ print("------------------")
 for col in df.select_dtypes(include=['object']):
     df[col] = df[col].str.strip()
 
-df.to_csv('Cleaned_Superstore_Sales_Dataset_v1.csv')
+df.to_excel('Cleaned_Superstore_Sales_Dataset_v3.xlsx')
