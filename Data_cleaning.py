@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_excel('Superstore_Sales_Datase.xls')
+df = pd.read_excel('Superstore_Sales_Dataset.xls')
 print(df.head())
 
 # Setting column "Row ID" as the index of the dataset
@@ -46,3 +46,4 @@ for col in df.select_dtypes(include=['object']):
     df[col] = df[col].str.strip()
 
 df.to_excel('Cleaned_Superstore_Sales_Dataset_v3.xlsx')
+
